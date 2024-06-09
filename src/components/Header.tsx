@@ -1,41 +1,53 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const Header: React.FC = () => {
   return (
-    <header className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 to-emerald-500 to-90% py-6 rounded-md">
-      <div className="container mx-auto px-4 rounded-sm">
+    <header className="relative bg-black bg-opacity-75 py-6 rounded-md shadow-2xl transform hover:scale-105 transition-transform duration-500">
+      <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-green-700 rounded-md opacity-20 blur"></div>
+      <div className="relative container mx-auto px-4 rounded-sm">
         <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="flex items-center">
-            <img
-              src="https://www.rollingstone.com/wp-content/uploads/2018/06/rs-tupac-eb46d22a-5043-425a-9981-e93a95a70e65.jpg"
-              alt="Profile"
-              className="w-16 h-16 rounded-full mr-4"
-            />
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-white">
-                Your Name
-              </h1>
-              <p className="text-lg md:text-xl text-white mt-1">
-                Software Developer
-              </p>
+          <motion.div
+            className="flex items-center"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-green-700 flex items-center justify-center mr-4 shadow-2xl">
+              <span className="text-white text-2xl font-bold">AD</span>
             </div>
-          </div>
+            <div>
+              <h2
+                className="text-2xl md:text-3xl font-extrabold text-white mt-1"
+                style={{
+                  fontFamily: "Poppins, sans-serif",
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+                }}
+              >
+                Software Developer
+              </h2>
+            </div>
+          </motion.div>
           <nav className="flex flex-wrap justify-center md:justify-end mt-4 md:mt-0 space-x-6">
-            <a href="#home" className="nav-link">
-              Home
-            </a>
-            <a href="#cv" className="nav-link">
-              CV
-            </a>
-            <a href="#projects" className="nav-link">
-              Projects
-            </a>
-            <a href="#achievement" className="nav-link">
-              Achievement
-            </a>
-            <a href="#hobbies" className="nav-link">
-              Hobbies
-            </a>
+            {["Home", "CV", "Projects", "Achievement", "Hobbies"].map(
+              (item, index) => (
+                <motion.a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="nav-link text-white text-xl font-semibold hover:text-green-300 transition duration-300"
+                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 * index }}
+                  style={{
+                    fontFamily: "Roboto, sans-serif",
+                    textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
+                  }}
+                >
+                  {item}
+                </motion.a>
+              )
+            )}
           </nav>
         </div>
       </div>
