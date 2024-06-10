@@ -1,6 +1,24 @@
 import React from "react";
+import { useSpring, animated } from "@react-spring/web";
+
+const useHoverAnimation = () => {
+  const [isHovered, setHovered] = React.useState(false);
+
+  const springProps = useSpring({
+    transform: isHovered ? "translateY(-10px)" : "translateY(0px)",
+    config: { duration: 300 },
+  });
+
+  return [springProps, setHovered] as const;
+};
 
 const Header: React.FC = () => {
+  const [homeSpring, setHomeHovered] = useHoverAnimation();
+  const [cvSpring, setCvHovered] = useHoverAnimation();
+  const [projectsSpring, setProjectsHovered] = useHoverAnimation();
+  const [achievementsSpring, setAchievementsHovered] = useHoverAnimation();
+  const [hobbiesSpring, setHobbiesHovered] = useHoverAnimation();
+
   return (
     <header className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 to-emerald-500 to-90% py-6 rounded-md">
       <div className="container mx-auto px-4 rounded-sm">
@@ -21,21 +39,51 @@ const Header: React.FC = () => {
             </div>
           </div>
           <nav className="flex flex-wrap justify-center md:justify-end mt-4 md:mt-0 space-x-6">
-            <a href="#home" className="nav-link">
+            <animated.a
+              href="#home"
+              className="nav-link"
+              style={homeSpring}
+              onMouseEnter={() => setHomeHovered(true)}
+              onMouseLeave={() => setHomeHovered(false)}
+            >
               Home
-            </a>
-            <a href="#cv" className="nav-link">
+            </animated.a>
+            <animated.a
+              href="#cv"
+              className="nav-link"
+              style={cvSpring}
+              onMouseEnter={() => setCvHovered(true)}
+              onMouseLeave={() => setCvHovered(false)}
+            >
               CV
-            </a>
-            <a href="#projects" className="nav-link">
+            </animated.a>
+            <animated.a
+              href="#projects"
+              className="nav-link"
+              style={projectsSpring}
+              onMouseEnter={() => setProjectsHovered(true)}
+              onMouseLeave={() => setProjectsHovered(false)}
+            >
               Projects
-            </a>
-            <a href="#achievement" className="nav-link">
+            </animated.a>
+            <animated.a
+              href="#achievement"
+              className="nav-link"
+              style={achievementsSpring}
+              onMouseEnter={() => setAchievementsHovered(true)}
+              onMouseLeave={() => setAchievementsHovered(false)}
+            >
               Achievement
-            </a>
-            <a href="#hobbies" className="nav-link">
+            </animated.a>
+            <animated.a
+              href="#hobbies"
+              className="nav-link"
+              style={hobbiesSpring}
+              onMouseEnter={() => setHobbiesHovered(true)}
+              onMouseLeave={() => setHobbiesHovered(false)}
+            >
               Hobbies
-            </a>
+            </animated.a>
           </nav>
         </div>
       </div>
